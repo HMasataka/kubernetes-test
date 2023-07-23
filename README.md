@@ -15,3 +15,9 @@ gcloud container clusters create k8s-cluster \
 ```bash
 kind create cluster --config kind.yml
 ```
+
+## test
+
+```bash
+conftest test --policy ./policy ./*.yaml
+```

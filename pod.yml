@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubernetes-pod
+spec:
+  containers:
+  - name: kubernetes-container
+    image: busybox
+    args:
+    - sleep
+    - "999"

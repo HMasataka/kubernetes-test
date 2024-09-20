@@ -9,7 +9,24 @@ deny[msg] {
     msg = sprintf("Pod Template と Selector には同じ app ラベルを付与してください: %s", [input.metadata.name])
 }
 
+recommended_labels {
+	input.metadata.labels["app.kubernetes.io/name"]
+	input.metadata.labels["app.kubernetes.io/instance"]
+	input.metadata.labels["app.kubernetes.io/version"]
+	input.metadata.labels["app.kubernetes.io/component"]
+	input.metadata.labels["app.kubernetes.io/part-of"]
+	input.metadata.labels["app.kubernetes.io/managed-by"]
+}
 workload_resources := ["Deployment", "StatefulSet"]
+
 is_deployment_or_statefulset {
 	input.kind == workload_resources[_]
+}
+
+# recommented labels must exists
+violation_labels_recommended_exists[{"msg": msg}] {
+	is_deployment_or_statefulset
+	not recommended_labels
+
+	msg = sprintf("推奨ラベルを付与してください。(https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/#labels): [Kind=%s,Name=%s]", [input.kind, input.metadata.name])
 }

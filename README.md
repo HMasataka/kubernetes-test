@@ -21,3 +21,7 @@ kind create cluster --config kind.yml
 ```bash
 conftest test --policy ./policy ./*.yaml
 ```
+
+## Reference
+
+[Rego メモ](https://gist.github.com/guitarrapc/8705b2644763cd8732796671d5a8581d)
